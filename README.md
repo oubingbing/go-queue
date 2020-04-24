@@ -47,16 +47,16 @@ DB = 0
 REDIS_DB_CALLBACK_KEY = package_finish_list
 
 [mysql]
-DB_DRIVER=mysql
-DB_HOST=192.168.0.9
-DB_PORT=3306
-DB_DATABASE=nmsdk_backend
-DB_USERNAME=root
-DB_PASSWORD=root
+DB_DRIVER=
+DB_HOST=
+DB_PORT=
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
 
 [socket]
-SOCKET_URL=http://socket.galaxymx.com
+SOCKET_URL=
 
 [log_path]
-LOG_PATH=/data/logs/GalaxyMxSDK_Backend/
+LOG_PATH=
 ```
