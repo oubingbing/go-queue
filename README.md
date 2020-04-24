@@ -37,11 +37,12 @@
 
 ### 配置参数
 
+```
 [redis]
 HOST = localhost:6379
 PASSWORD =
 DB = 0
-```
+
 # Python打包工具回调写入的队列名称
 REDIS_DB_CALLBACK_KEY = package_finish_list
 
