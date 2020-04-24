@@ -22,12 +22,18 @@ type Task struct {
 	Token string
 }
 
+/**
+ * websocket推送消息
+ */
 type Message struct {
 	data int
 	typ string
 	message string
 }
 
+/**
+ * websocket服务返回信息
+ */
 type Response struct {
 	Code int
 	Message string
@@ -35,6 +41,9 @@ type Response struct {
 	Contact_email string
 }
 
+/**
+ * 处理打包回调
+ */
 func DealWith(task *Task) error {
 	db := &Db{}
 	db.Connect()
@@ -59,35 +68,37 @@ func DealWith(task *Task) error {
 	packageQueue.ApkName = task.Apk_name
 	packageQueue.UpdatedAt = time.Now().Format("2006-01-02 15:04:05")
 
-
 	//更新数据库
 	var affected int64
 	affected,err = db.engine.Where("id = ?", packageQueue.Id).Update(packageQueue)
 	if err != nil {
 		//数据库查询错误
+		Error(fmt.Sprintf("更新package queue 失败,packageQueue: %v",packageQueue));
 		return err
 	}
-
 	if affected <= 0 {
 		//更新失败
-		Error(fmt.Sprintf("更新package queue 不存在,packageQueue: -%v",packageQueue));
+		Error(fmt.Sprintf("更新package queue 更新失败,packageQueue: %v",packageQueue));
 		return err
 	}
+	Info(fmt.Sprintf("打包回调成功,packageQueue: %v",packageQueue))
 
 	var packageObj *PackageMgr
 	packageObj,result,err = db.FindPackage(packageQueue.PackageId)
 	if err != nil {
 		//查找package失败
+		Error(fmt.Sprintf("查找package失败,packageQueue: %v",packageQueue));
 		return nil
 	}
 	if !result {
-		Error(fmt.Sprintf("FindPackage 不存在,packageQueue: -%v",packageQueue));
+		Error(fmt.Sprintf("pacakge 不存在,packageQueue: %v",packageQueue));
 		return nil
 	}
 
 	var channelId int
 	result,err,channelId = db.FindChannelConfig(packageObj.ChannelConfigId)
 	if err != nil {
+		Error(fmt.Sprintf("查找channel_config失败,packageQueue: %v",packageQueue));
 		return nil
 	}
 	if !result {
@@ -98,6 +109,7 @@ func DealWith(task *Task) error {
 	result,err,channel = db.FindChannel(channelId)
 	if err != nil {
 		//查找channel失败
+		Error(fmt.Sprintf("查找channel失败,packageQueue: %v",packageQueue));
 		return nil
 	}
 	if !result {
