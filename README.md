@@ -11,7 +11,7 @@
 	go version
 
 ### 二、拉取代码
-发布地址：ssh://git@git.galaxymx.com:22333/GalaxyMxSDK/package-callback.git (git pull)
+发布地址： (git pull)
 发布分支： master
 发布备注：
 
