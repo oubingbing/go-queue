@@ -1,0 +1,20 @@
+[redis]
+HOST = localhost:6379
+PASSWORD =
+DB = 0
+# Python打包工具回调写入的队列名称
+REDIS_DB_CALLBACK_KEY = package_finish_list
+
+[mysql]
+DB_DRIVER=mysql
+DB_HOST=
+DB_PORT= 3306
+DB_DATABASE=nmsdk_backend
+DB_USERNAME=
+DB_PASSWORD=
+
+[socket]
+SOCKET_URL=http://socket.galaxymx.com
+
+[log_path]
+LOG_PATH=/data/logs/GalaxyMxSDK_Backend/
